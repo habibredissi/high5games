@@ -7,17 +7,20 @@ const CustomSelectSpecies = ({ data, setSpecies, setPlanets, planets }) => {
   const [options, setOptions] = useState([])
 
   useEffect(() => {
+    /** Build the List of the Species */
     if (data.length > 0 && options.length === 0) {
       setOptions(buildOptions(data))
     }
   }, [options, data])
 
+  /** Add the selected Specie */
   const handleSelection = (e) => {
     const newSpecies = {
       list: data,
       selection: e.value
     }
     setSpecies(newSpecies)
+    /** Reset the departure & arrival Planet */
     setPlanets((oldPlanets) => ({
       ...oldPlanets,
       departure: null,

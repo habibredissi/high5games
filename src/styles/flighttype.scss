@@ -1,0 +1,32 @@
+.booking {
+  &__trip {
+    display: flex;
+    width: 50%;
+    margin: 14px 0;
+    justify-content: space-between;
+    & label {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__dot {
+    height: 18px;
+    width: 18px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 5xp solid transparent;
+    transition: all 0.3s ease;
+  }
+  & #dot-1:checked ~ .booking__trip label .booking__dot--one {
+    border-color: #d9d9d9;
+    background-color: #f1c232;
+  }
+  & #dot-2:checked ~ .booking__trip label .booking__dot--two {
+    border-color: #d9d9d9;
+    background-color: #f1c232;
+  }
+  & input[type="radio"] {
+    display: none;
+  }
+}

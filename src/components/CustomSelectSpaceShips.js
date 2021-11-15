@@ -7,6 +7,7 @@ const CustomeSelectSpaceships = ({ data, setSpaceships }) => {
   const { list: listSpaceships } = data
 
   useEffect(() => {
+    /** List of military spaceships */
     const militarySpaceships = [
       "deep space mobile battlestation",
       "assault starfighter",
@@ -18,6 +19,7 @@ const CustomeSelectSpaceships = ({ data, setSpaceships }) => {
       "star destroyer"
     ]
 
+    /** Filter the military spaceships */
     if (listSpaceships?.length > 0 && options.length === 0) {
       const newOptions = listSpaceships.filter(
         (spaceship) =>
@@ -32,7 +34,11 @@ const CustomeSelectSpaceships = ({ data, setSpaceships }) => {
   }
   return (
     <>
-      <Select options={options} onChange={(e) => handleSelection(e)} placeholder="Select a Spaceship" />
+      <Select
+        options={options}
+        onChange={(e) => handleSelection(e)}
+        placeholder="Select a Spaceship"
+      />
     </>
   )
 }

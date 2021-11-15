@@ -1,4 +1,5 @@
 import React from "react"
+import "../styles/flighttype.scss"
 
 const FlightType = ({ flightType, setFlightType }) => {
   const handleCheckBoxChange = (e) => {

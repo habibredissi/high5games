@@ -11,8 +11,6 @@ import { buildPlanetSpecies } from "./utilities/tools"
 import "./styles/app.scss"
 
 function App() {
-  const startDate = new Date()
-  const endDate = new Date().setDate(startDate.getDate() + 7)
   /** STATE MANAGEMENT */
   const [fullName, setFullName] = useState("")
   const [species, setSpecies] = useState({ list: [], selection: null })
@@ -26,8 +24,8 @@ function App() {
   const [loadingPlanets, setLoadingPlanets] = useState(false)
   const [flightType, setFlightType] = useState("round-trip")
   const [dates, setDates] = useState({
-    departure: startDate.toLocaleDateString("en-US"),
-    arrival: new Date(endDate).toLocaleDateString("en-US")
+    departure: null,
+    arrival: null
   })
   const [showTripSummary, setShowTripSummary] = useState(false)
   const [seatNumber, setSeatNumber] = useState(null)
@@ -163,8 +161,7 @@ function App() {
               <CustomDatePicker
                 setDates={setDates}
                 dateType="departure"
-                startDate={startDate}
-                endDate={endDate}
+                dates={dates}
               />
             </div>
             <div className="booking__input">
@@ -173,8 +170,7 @@ function App() {
                 flightType={flightType}
                 setDates={setDates}
                 dateType="arrival"
-                startDate={startDate}
-                endDate={endDate}
+                dates={dates}
               />
             </div>
             <div className="booking__input">

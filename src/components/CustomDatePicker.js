@@ -1,27 +1,30 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import DatePicker from "react-datepicker"
+
 import "react-datepicker/dist/react-datepicker.css"
 
-const CustomDatePicker = ({
-  flightType,
-  dateType,
-  setDates,
-  startDate,
-  endDate
-}) => {
+const CustomDatePicker = ({ flightType, dateType, setDates, dates }) => {
+  const now = new Date()
+  const nextDays = now.setDate(now.getDate() + 7)
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date(nextDays))
+
+  /** Handle arrival or departure date change */
   const handleDateChange = (date) => {
-    if (dateType === "departure") {
-      setDates((oldValue) => ({
-        ...oldValue,
-        departure: date.toLocaleDateString("en-US")
-      }))
-    } else if (dateType === "arrival") {
-      setDates((oldValue) => ({
-        ...oldValue,
-        arrival: date.toLocaleDateString("en-US")
-      }))
-    }
+    dateType === "departure" ? setStartDate(date) : setEndDate(date)
+    const newDates = { ...dates }
+    newDates[dateType] = date.toLocaleDateString("en-US")
+    setDates(newDates)
   }
+
+  /** Initialize the defaul dates for departure and arrival */
+  useEffect(() => {
+    setDates({
+      departure: startDate.toLocaleDateString("en-US"),
+      arrival: endDate.toLocaleDateString("en-US")
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <DatePicker
