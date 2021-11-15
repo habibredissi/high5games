@@ -23,6 +23,7 @@ const CustomSelectPlanets = ({ data, setPlanets, type, selectedSpecie }) => {
       }, [])
       setOptions(newOptions)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSpecie])
 
   const handleSelection = (e) => {
@@ -38,6 +39,9 @@ const CustomSelectPlanets = ({ data, setPlanets, type, selectedSpecie }) => {
         onChange={(e) => handleSelection(e)}
         isDisabled={selectedSpecie ? false : true}
         value={value}
+        placeholder={
+          type === "departure" ? "Departure planet" : "Arrival planet"
+        }
       />
     </>
   )

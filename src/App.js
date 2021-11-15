@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react"
-import { getDataFromApi } from "./api/Request"
-import "./styles/app.scss"
 import CustomSelectSpecies from "./components/CustomSelectSpecies"
 import CustomSelectPlanets from "./components/CustomSelectPlanets"
 import CustomSelectSpaceShips from "./components/CustomSelectSpaceShips"
 import CustomDatePicker from "./components/CustomDatePicker"
-import { buildPlanetSpecies } from "./utilities/tools"
 import FlightType from "./components/FlightType"
 import SeatsMap from "./components/SeatsMap"
 import TripSummary from "./components/TripSummary"
+import { getDataFromApi } from "./api/Request"
+import { buildPlanetSpecies } from "./utilities/tools"
+import "./styles/app.scss"
 
 function App() {
   const startDate = new Date()
@@ -47,7 +47,7 @@ function App() {
       spaceships.selection === null ||
       dates.departure === null
     ) {
-      alert("All fields are required!")
+      alert("I am your father! All fields are required!")
       return
     }
 
@@ -73,13 +73,10 @@ function App() {
               setPeople(data)
               break
             case "planets":
-              const planets = await getDataFromApi("planets")
-              if (planets.length > 0) {
-                setPlanets({
-                  list: buildPlanetSpecies(planets, people, species)
-                })
-                setLoadingPlanets(false)
-              }
+              setPlanets({
+                list: buildPlanetSpecies(data, people, species)
+              })
+              setLoadingPlanets(false)
               break
             case "starships":
               setSpaceships({ list: data, selection: null })
@@ -109,6 +106,7 @@ function App() {
       fetchData("planets")
     }
     if (spaceships.list.length === 0) fetchData("starships")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [planets, people, species, spaceships])
 
   return (
@@ -125,6 +123,7 @@ function App() {
                 placeholder="Enter your name"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
+                autoFocus
                 required
               />
             </div>

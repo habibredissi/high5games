@@ -32,7 +32,7 @@ const CustomeSelectSpaceships = ({ data, setSpaceships }) => {
   }
   return (
     <>
-      <Select options={options} onChange={(e) => handleSelection(e)} />
+      <Select options={options} onChange={(e) => handleSelection(e)} placeholder="Select a Spaceship" />
     </>
   )
 }

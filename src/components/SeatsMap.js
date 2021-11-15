@@ -1,5 +1,6 @@
 import React from "react"
 import "../styles/seatsmap.scss"
+
 const SeatsMap = ({ spaceshipName, setSeatNumber }) => {
   const handleClick = (e) => {
     const seatNumber = e.target.id

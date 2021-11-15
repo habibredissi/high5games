@@ -30,19 +30,15 @@ body {
   }
   &__title {
     position: relative;
-    font-size: 1.5rem;
-    font-weight: 500;
+    text-align: center;
     color: #000;
-    margin-bottom: 2rem;
-    &::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      width: 30px;
-      background: #f1c232;
-    }
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 2rem;
+    text-decoration: underline;
+    text-decoration-color: #f1c232;
+    text-decoration-thickness: 7px;
   }
   &__details {
     display: flex;
@@ -108,7 +104,6 @@ body {
     height: 45px;
     margin: 45px 0;
     & input {
-      height: 100%;
       width: 100%;
       outline: none;
       color: black;
@@ -119,6 +114,7 @@ body {
       letter-spacing: 1px;
       cursor: pointer;
       border-radius: 10px;
+      padding: 1rem;
     }
     &:hover {
       background: #f1c232;

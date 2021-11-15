@@ -35,7 +35,7 @@ const CustomSelectSpecies = ({ data, setSpecies, setPlanets, planets }) => {
           planets.length === 0 || options.length === 0 ? (
             <>
               <ClipLoader loading={true} size={15} color="#808090" />
-              <span> Loading...</span>
+              <span> Unleashing the force...</span>
             </>
           ) : (
             "Select your specie"
