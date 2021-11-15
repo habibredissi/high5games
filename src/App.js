@@ -47,12 +47,14 @@ function App() {
       spaceships.selection === null ||
       dates.departure === null
     ) {
-      alert("I am your father! All fields are required!")
+      alert(`${fullName ? fullName : "Luke"}, all fields are required!`)
       return
     }
 
     if (seatNumber === null) {
-      alert("Please choose your seat in the Spaceship!")
+      alert(
+        `${fullName ? fullName : "Luke"}, choose your seat in the Spaceship!`
+      )
       return
     }
 
