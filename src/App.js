@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { getDataFromApi } from "./api/Request"
-import "./App.css"
+import "./styles/app.scss"
 import CustomSelectSpecies from "./components/CustomSelectSpecies"
 import CustomSelectPlanets from "./components/CustomSelectPlanets"
 import CustomSelectSpaceShips from "./components/CustomSelectSpaceShips"
@@ -11,6 +11,9 @@ import SeatsMap from "./components/SeatsMap"
 import TripSummary from "./components/TripSummary"
 
 function App() {
+  const startDate = new Date()
+  const endDate = new Date().setDate(startDate.getDate() + 7)
+  /** STATE MANAGEMENT */
   const [fullName, setFullName] = useState("")
   const [species, setSpecies] = useState({ list: [], selection: null })
   const [people, setPeople] = useState([])
@@ -20,12 +23,19 @@ function App() {
     departure: null,
     arrival: null
   })
-  const [loadingPlanets, setLoadingPlanets] = useState(true)
+  const [loadingPlanets, setLoadingPlanets] = useState(false)
   const [flightType, setFlightType] = useState("round-trip")
-  const [dates, setDates] = useState({ departure: null, arrival: null })
+  const [dates, setDates] = useState({
+    departure: startDate.toLocaleDateString("en-US"),
+    arrival: new Date(endDate).toLocaleDateString("en-US")
+  })
   const [showTripSummary, setShowTripSummary] = useState(false)
   const [seatNumber, setSeatNumber] = useState(null)
 
+  /** Function to handle submit
+   *  Check the form's input and
+   *  Display the summary
+   */
   const handleSubmit = (e) => {
     e.preventDefault()
     if (
@@ -37,7 +47,12 @@ function App() {
       spaceships.selection === null ||
       dates.departure === null
     ) {
-      alert("Complete form")
+      alert("All fields are required!")
+      return
+    }
+
+    if (seatNumber === null) {
+      alert("Please choose your seat in the Spaceship!")
       return
     }
 
@@ -45,45 +60,62 @@ function App() {
   }
 
   useEffect(() => {
-    async function fetchSpeciesData() {
-      const data = await getDataFromApi("species")
-      if (data) setSpecies({ list: data, selection: null })
-    }
-    if (species.list.length === 0) fetchSpeciesData()
-
-    async function fetchPeopleData() {
-      const data = await getDataFromApi("people")
-      if (data) setPeople(data)
-    }
-    if (people.length === 0) fetchPeopleData()
-
-    async function fetchPlanetsData() {
-      setLoadingPlanets(true)
-      const planets = await getDataFromApi("planets")
-      if (planets.length > 0) {
-        setPlanets({ list: buildPlanetSpecies(planets, people, species) })
-        setLoadingPlanets(false)
+    /** General function to fetch data from the API */
+    async function fetchData(category) {
+      try {
+        const data = await getDataFromApi(category)
+        if (data.length > 0) {
+          switch (category) {
+            case "species":
+              setSpecies({ list: data, selection: null })
+              break
+            case "people":
+              setPeople(data)
+              break
+            case "planets":
+              const planets = await getDataFromApi("planets")
+              if (planets.length > 0) {
+                setPlanets({
+                  list: buildPlanetSpecies(planets, people, species)
+                })
+                setLoadingPlanets(false)
+              }
+              break
+            case "starships":
+              setSpaceships({ list: data, selection: null })
+              break
+            default:
+              break
+          }
+        }
+      } catch (error) {
+        console.error(error)
       }
     }
+
+    /** Initial load of the Data for Species & People */
+    if (species.list.length === 0) fetchData("species")
+    if (people.length === 0) fetchData("people")
+    /** We wait for People & Species to be loaded before
+     *  Fetching for Planets
+     */
     if (
+      loadingPlanets === false &&
       planets.list.length === 0 &&
       people.length > 0 &&
       species.list.length > 0
-    )
-      fetchPlanetsData()
-
-    async function fetchSpaceshipsData() {
-      const data = await getDataFromApi("starships")
-      if (data) setSpaceships({ list: data, selection: null })
+    ) {
+      setLoadingPlanets(true)
+      fetchData("planets")
     }
-    if (spaceships.list.length === 0) fetchSpaceshipsData()
+    if (spaceships.list.length === 0) fetchData("starships")
   }, [planets, people, species, spaceships])
 
   return (
     <>
       <div className="booking">
         <div className="booking__container">
-          <div className="booking__title">BOOK YOUR TRIP</div>
+          <div className="booking__title">MAY THE FORCE BE WITH YOU!</div>
           <FlightType flightType={flightType} setFlightType={setFlightType} />
           <div className="booking__details">
             <div className="booking__input">
@@ -103,6 +135,7 @@ function App() {
                 setSpecies={setSpecies}
                 loadingPlanets={loadingPlanets}
                 setPlanets={setPlanets}
+                planets={planets.list}
               />
             </div>
             <div className="booking__input">
@@ -126,7 +159,12 @@ function App() {
             </div>
             <div className="booking__input">
               <span className="booking__label">Depart</span>
-              <CustomDatePicker setDates={setDates} dateType="departure" />
+              <CustomDatePicker
+                setDates={setDates}
+                dateType="departure"
+                startDate={startDate}
+                endDate={endDate}
+              />
             </div>
             <div className="booking__input">
               <span className="booking__label">Return</span>
@@ -134,6 +172,8 @@ function App() {
                 flightType={flightType}
                 setDates={setDates}
                 dateType="arrival"
+                startDate={startDate}
+                endDate={endDate}
               />
             </div>
             <div className="booking__input">

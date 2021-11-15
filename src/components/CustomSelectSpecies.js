@@ -3,12 +3,7 @@ import Select from "react-select"
 import { ClipLoader } from "react-spinners"
 import { buildOptions } from "../utilities/tools"
 
-const CustomSelectSpecies = ({
-  data,
-  setSpecies,
-  loadingPlanets,
-  setPlanets
-}) => {
+const CustomSelectSpecies = ({ data, setSpecies, setPlanets, planets }) => {
   const [options, setOptions] = useState([])
 
   useEffect(() => {
@@ -35,9 +30,9 @@ const CustomSelectSpecies = ({
         className="customSelect"
         options={options}
         onChange={(e) => handleSelection(e)}
-        isDisabled={loadingPlanets}
+        isDisabled={planets.length === 0 || options.length === 0}
         placeholder={
-          loadingPlanets ? (
+          planets.length === 0 || options.length === 0 ? (
             <>
               <ClipLoader loading={true} size={15} color="#808090" />
               <span> Loading...</span>
