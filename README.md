@@ -5,6 +5,16 @@
 -   The Planet data doesn't contain the Species of the residents. So, I had to cross the data between Planet & People to grab the residents' species.
 -   After entering all your information, you will be asked to choose a seat in the Spaceship.
 
+## Instructions to run it locally
+
+In the project directory, you can run:
+
+### `npm install`
+
+And then,
+
+### `npm start`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
