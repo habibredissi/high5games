@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #eaeaea
+    url(https://www.starwarsnewsnet.com/wp-content/uploads/2017/04/BG.jpg)
+    no-repeat center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.booking {
+  position: relative;
+  overflow: hidden;
+  &__container {
+    min-height: 1000px;
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+  }
+  &__title {
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 2rem;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 30px;
+      background: #f1c232;
+    }
+  }
+  &__details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+  }
+  &__input {
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+    & input {
+      height: 45px;
+      width: 100%;
+      outline: none;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      padding-left: 15px;
+      font-size: 1rem;
+      border-bottom-width: 2px;
+      transition: all 0.3s ease;
+      &:focus,
+      :valid {
+        border-color: #f1c232;
+      }
+    }
+  }
+  &__label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  &__trip {
+    display: flex;
+    width: 50%;
+    margin: 14px 0;
+    justify-content: space-between;
+    & label {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__dot {
+    height: 18px;
+    width: 18px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 5xp solid transparent;
+    transition: all 0.3s ease;
+  }
+  & #dot-1:checked ~ .booking__trip label .booking__dot--one {
+    border-color: #d9d9d9;
+    background-color: #f1c232;
+  }
+  & #dot-2:checked ~ .booking__trip label .booking__dot--two {
+    border-color: #d9d9d9;
+    background-color: #f1c232;
+  }
+  & input[type="radio"] {
+    display: none;
+  }
+  &__button {
+    height: 45px;
+    margin: 45px 0;
+    & input {
+      height: 100%;
+      width: 100%;
+      outline: none;
+      color: black;
+      background: #f1c232;
+      border: none;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    &:hover {
+      background: #f1c232;
+    }
+  }
+  &__spinner {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: visible;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+@media all and (max-width: 584px) {
+  .booking {
+    &__container {
+      width: 100%;
+    }
+    &__input {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    &__trip {
+      width: 100%;
+    }
+  }
+}
