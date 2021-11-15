@@ -10,7 +10,7 @@ export const buildOptions = (data) => {
 
 /** Function to add the species present in each planet
  *  For that, we check the species of the residents of the planet
- *  And then we contruct a new Object with the list of the species
+ *  And then we contruct a new Planet Object with the list of the species
  */
 export const buildPlanetSpecies = (planets, people, species) => {
   const newPlanets = [...planets]
