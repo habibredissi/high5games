@@ -1,3 +1,10 @@
+# A few words
+
+-   The API for Species, People, Spaceships, and Planets are paginated. I created a loop to crawl through the pages to grab all the data for each category.
+-   Since a traveler can only book passage to planets that do contain at least one member of their species, the arrival planet depends on the Species selected by the User.
+-   The Planet data doesn't contain the Species of the residents. So, I had to cross the data between Planet & People to grab the residents' species.
+-   After entering all your information, you will be asked to choose a seat in the Spaceship.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
